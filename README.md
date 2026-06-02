@@ -1,53 +1,415 @@
-# Lendsqr Frontend Engineering Assessment
+# 🏢 Lendsqr Admin Dashboard
 
-A modern React + TypeScript + SCSS web application for the Lendsqr Admin Dashboard. Built with Vite, featuring user management, authentication, search/filter functionality, and IndexedDB data persistence.
+<div align="center">
 
-## Project Overview
+**A modern, production-ready admin dashboard built with React, TypeScript, and Vite**
 
-This assessment tests frontend engineering proficiency through building a functional admin dashboard with the following pages:
+[![React](https://img.shields.io/badge/React-19.2.6-61DAFB?logo=react)](https://react.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.3-3178C6?logo=typescript)](https://www.typescriptlang.org)
+[![Vite](https://img.shields.io/badge/Vite-8.0-646CFF?logo=vite)](https://vitejs.dev)
+[![License](https://img.shields.io/badge/License-MIT-green)](#license)
 
-- **Login Page**: Email/password authentication with form validation
-- **Dashboard**: Welcome page after login
-- **Users List**: Display 500 mock users with pagination, search, and filtering
-- **User Details**: Comprehensive user information with local caching via IndexedDB
+[Features](#-features) • [Tech Stack](#-tech-stack) • [Getting Started](#-getting-started) • [Project Structure](#-project-structure) • [Available Scripts](#-available-scripts)
 
-## Tech Stack
+</div>
 
-- **Framework**: React 18 with TypeScript
-- **Build Tool**: Vite (fast, modern bundler)
-- **Styling**: SCSS with CSS Modules for component scoping
-- **Routing**: React Router v6
-- **HTTP Client**: Axios
-- **Mock API**: Mock Service Worker (MSW) - intercepts API calls for 500 test users
-- **Storage**: IndexedDB for offline-first user caching
-- **Testing**: Vitest + React Testing Library
-- **Code Quality**: ESLint, Prettier (configurations included)
+---
 
-## Project Structure
+## 📋 Overview
+
+Lendsqr Admin Dashboard is a comprehensive user management system built for the Lendsqr fintech platform. It demonstrates professional frontend engineering practices with a clean architecture, TypeScript strict mode, and production-grade code quality standards.
+
+The application features a complete user authentication flow, advanced data filtering and search, responsive design, and offline-first capabilities using IndexedDB.
+
+---
+
+## ✨ Features
+
+### 🔐 Authentication
+- Email/password login with form validation
+- Secure token-based session management
+- Protected routes with automatic redirects
+- Logout with localStorage cleanup
+
+### 👥 User Management
+- Display and manage 500+ users with pagination
+- Advanced search by name, email, or phone number
+- Real-time status filtering (active, inactive, pending, blacklisted)
+- Column-level filtering for organization, username, date joined
+- View comprehensive user profiles with personal, financial, and document info
+
+### 📊 Dashboard
+- Statistics cards (total users, active users, loans, savings)
+- Quick access navigation
+- Responsive layout for all device sizes
+- Professional UI with Lendsqr branding
+
+### 🗂️ User Details
+- Comprehensive user profile pages
+- 7+ information sections (personal, education, guarantor, bank details, etc.)
+- IndexedDB offline caching
+- Status management (blacklist/activate users)
+
+### ⚡ Performance
+- Lightning-fast development with Vite HMR
+- Optimized production builds
+- Lazy-loaded components
+- Efficient API mocking with MSW
+
+### 🧪 Code Quality
+- TypeScript strict mode enabled
+- ESLint + Prettier configured
+- Comprehensive unit tests
+- Professional folder structure
+
+---
+
+## 🛠 Tech Stack
+
+| Category | Technology | Version |
+|----------|-----------|---------|
+| **Frontend** | React | 19.2.6 |
+| **Language** | TypeScript | 5.3+ |
+| **Build Tool** | Vite | 8.0.14 |
+| **Styling** | SCSS + CSS Modules | - |
+| **Routing** | React Router | 7.16.0 |
+| **HTTP Client** | Axios | 1.16.1 |
+| **API Mocking** | Mock Service Worker | 2.14.6 |
+| **Storage** | IndexedDB | Native |
+| **Testing** | Vitest + React Testing Library | 4.1.7 |
+| **Code Quality** | ESLint + Prettier | Latest |
+
+---
+
+## 📁 Project Structure
 
 ```
-src/
-├── pages/                    # Page components
-│   ├── Login.tsx            # Login page with form validation
-│   ├── Dashboard.tsx        # Admin dashboard
-│   ├── UsersList.tsx        # Users list with search/filter/pagination
-│   └── UserDetails.tsx      # User details with IndexedDB storage
-├── components/              # Reusable UI components (extensible)
-├── services/                # API and storage services
-│   ├── api.ts              # Axios instance and API methods
-│   └── storage.ts          # IndexedDB service
-├── mocks/                   # Mock Service Worker setup
-│   ├── handlers.ts         # MSW API route handlers
-│   ├── mockData.ts         # 500 user data generator
-│   ├── browser.ts          # Browser MSW setup
-│   └── server.ts           # Node MSW setup for tests
-├── hooks/                   # Custom React hooks (extensible)
-├── types/                   # TypeScript interfaces
-│   └── index.ts            # User, Auth, API types
-├── styles/                  # Global SCSS
-│   └── globals.scss        # Design tokens, utilities, resets
-├── __tests__/              # Unit tests
-│   ├── setup.ts            # Test environment setup
+lendsqr-fe-test/
+├── public/                       # Static assets
+│   ├── favicon.svg
+│   ├── icons.svg
+│   ├── login-illustration.png
+│   └── mockServiceWorker.js      # MSW browser setup
+│
+├── src/
+│   ├── __tests__/               # Unit & integration tests
+│   │   ├── Login.test.tsx
+│   │   ├── UsersList.test.tsx
+│   │   ├── UserDetails.test.tsx
+│   │   └── setup.ts             # Test environment config
+│   │
+│   ├── components/              # Reusable UI components
+│   │   ├── Navbar.tsx           # Navigation header with search
+│   │   ├── Sidebar.tsx          # Left navigation menu
+│   │   └── SidebarViews.tsx    # Sidebar view management
+│   │
+│   ├── hooks/                   # Custom React hooks
+│   │   └── (extensible - add custom hooks here)
+│   │
+│   ├── mocks/                   # Mock Service Worker setup
+│   │   ├── handlers.ts          # API route handlers
+│   │   ├── mockData.ts          # 500 user data generator
+│   │   ├── browser.ts           # Browser setup
+│   │   └── server.ts            # Node test setup
+│   │
+│   ├── pages/                   # Page components
+│   │   ├── Login.tsx            # Login page with validation
+│   │   ├── Dashboard.tsx        # Welcome dashboard
+│   │   ├── UsersList.tsx        # Users list + search/filter
+│   │   └── UserDetails.tsx      # User profile page
+│   │
+│   ├── services/                # Business logic services
+│   │   ├── api.ts               # Axios + auth interceptor
+│   │   └── storage.ts           # IndexedDB operations
+│   │
+│   ├── styles/                  # Global styles
+│   │   └── globals.scss         # Design tokens + utilities
+│   │
+│   ├── types/                   # TypeScript definitions
+│   │   ├── index.ts             # User, Auth, API types
+│   │   └── scss.d.ts            # SCSS module types
+│   │
+│   ├── utils/                   # Utility functions
+│   │   └── (extensible - add helpers here)
+│   │
+│   ├── App.tsx                  # Main app with routing
+│   └── main.tsx                 # React entry point
+│
+├── .editorconfig                # Editor settings
+├── .eslintrc.json               # ESLint rules
+├── .gitignore                   # Git ignore patterns
+├── .nvmrc                       # Node version (18.16.0)
+├── .prettierrc                  # Code formatting rules
+├── index.html                   # HTML entry point
+├── package.json                 # Dependencies
+├── README.md                    # This file
+├── tsconfig.json                # TypeScript config
+├── vite.config.ts               # Vite build config
+└── vitest.config.ts             # Test config
+```
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- **Node.js** 18.16.0+ (use `.nvmrc` with `nvm use`)
+- **npm** 9+ or **yarn**
+- **Git**
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/Shivakulakarni/lendsqr.git
+   cd lendsqr-fe-test
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Start development server**
+   ```bash
+   npm run dev
+   ```
+   Application will open at `http://localhost:5174`
+
+4. **Login credentials** (mock data)
+   - Email: `test@example.com`
+   - Password: `password123` (any 6+ character password works)
+
+---
+
+## 📖 Available Scripts
+
+| Script | Purpose | Usage |
+|--------|---------|-------|
+| `npm run dev` | Start Vite dev server with HMR | Development |
+| `npm run build` | Build for production | Deployment |
+| `npm run preview` | Preview production build locally | Testing |
+| `npm run test` | Run tests once | CI/CD |
+| `npm run test:watch` | Run tests in watch mode | Development |
+| `npm run test:ui` | Run tests with UI dashboard | Debugging |
+| `npm run test:coverage` | Generate coverage report | Analytics |
+| `npm run lint` | Check code style issues | QA |
+| `npm run lint:fix` | Fix linting issues automatically | Maintenance |
+| `npm run format` | Format code with Prettier | Code cleanup |
+
+---
+
+## 🎯 Key Features Explained
+
+### Authentication Flow
+```
+User → Login Page → Email/Password Validation → 
+MSW Mock API → localStorage Token Storage → 
+Protected Route → Dashboard/Users Page
+```
+
+### Data Management
+- **API Layer**: Axios with request interceptor that adds Bearer token
+- **Mock API**: MSW intercepts calls at network level (500 test users)
+- **Storage**: IndexedDB for offline caching on UserDetails page
+- **State**: React hooks (useState, useEffect, useCallback)
+
+### Search & Filtering
+- **Search**: By name, email, phone number (case-insensitive)
+- **Status Filter**: active, inactive, pending, blacklisted
+- **Column Filters**: Organization, username, date joined
+- **Pagination**: 7/10/20/50/100 items per page
+
+### Design System
+- **Primary Color**: #39CDCC (Teal)
+- **Text Color**: #213F7D (Dark Blue)
+- **Status Colors**: 
+  - Active: #00D97E (Green)
+  - Inactive: #9C9C9C (Gray)
+  - Pending: #FFA502 (Orange)
+  - Blacklisted: #FF4757 (Red)
+- **Responsive Breakpoints**: 320px, 640px, 768px, 1024px, 1280px
+
+---
+
+## 🧪 Testing
+
+```bash
+# Run all tests
+npm run test
+
+# Watch mode (re-run on file changes)
+npm run test:watch
+
+# Interactive UI dashboard
+npm run test:ui
+
+# Coverage report
+npm run test:coverage
+```
+
+Test files are located in `src/__tests__/` with setup in `src/__tests__/setup.ts`.
+
+---
+
+## 🔧 Configuration Files
+
+### `vite.config.ts`
+- React SWC compiler for fast builds
+- Alias paths for clean imports
+- Optimized dependencies
+
+### `tsconfig.json`
+- Strict mode enabled (no implicit any)
+- Target: ES2020
+- Module: ESNext
+- JSX: react-jsx
+
+### `.eslintrc.json`
+- React/React-Hooks rules
+- TypeScript recommended
+- Import sorting with simple-import-sort
+
+### `.prettierrc`
+- Tab width: 2 spaces
+- Trailing commas: es5
+- Single quotes
+
+---
+
+## 📱 Browser Support
+
+- Chrome/Edge (latest 2 versions)
+- Firefox (latest 2 versions)
+- Safari (latest 2 versions)
+- Mobile browsers (iOS Safari, Chrome Mobile)
+
+---
+
+## 🚢 Deployment
+
+### Build for Production
+```bash
+npm run build
+```
+
+Output goes to `dist/` directory (optimized, minified, tree-shaken).
+
+### Deploy to Vercel
+```bash
+npm i -g vercel
+vercel --prod
+```
+
+### Deploy to Netlify
+```bash
+npm run build
+# Drag dist/ folder to Netlify
+```
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please follow these steps:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+### Code Style
+- Run `npm run lint:fix` before committing
+- Ensure TypeScript has no errors
+- Add tests for new features
+
+---
+
+## 📝 API Reference
+
+### Authentication
+```typescript
+authService.login(email: string, password: string)
+authService.logout()
+authService.isAuthenticated(): boolean
+authService.getCurrentUser(): User | null
+```
+
+### Users
+```typescript
+userService.getUsers(filters: FilterOptions): Promise<PaginatedResponse>
+userService.getUserById(userId: string): Promise<User>
+```
+
+### Storage
+```typescript
+storageService.init()
+storageService.saveUser(user: User): Promise<void>
+storageService.getUser(userId: string): Promise<User | undefined>
+storageService.getAllUsers(): Promise<User[]>
+storageService.deleteUser(userId: string): Promise<void>
+```
+
+---
+
+## 🐛 Troubleshooting
+
+### Port Already in Use
+```bash
+# Vite automatically falls back to 5174, 5175, etc.
+# Or kill the process using port 5173:
+lsof -i :5173 | grep LISTEN | awk '{print $2}' | xargs kill -9
+```
+
+### MSW Not Intercepting Requests
+- Ensure `npm run dev` is running
+- Check browser console for MSW activation message
+- Verify `mockServiceWorker.js` is in `public/` folder
+
+### TypeScript Errors
+```bash
+npm run build  # Full type checking
+npx tsc --noEmit  # Check without emitting
+```
+
+---
+
+## 📚 Resources
+
+- [React Documentation](https://react.dev)
+- [TypeScript Handbook](https://www.typescriptlang.org/docs)
+- [Vite Documentation](https://vitejs.dev/guide)
+- [React Router Guide](https://reactrouter.com)
+- [MSW Documentation](https://mswjs.io)
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 👤 Author
+
+**Shiva Kulakarni**
+- GitHub: [@Shivakulakarni](https://github.com/Shivakulakarni)
+- Email: your-email@example.com
+
+---
+
+## ⭐ Show Your Support
+
+If you found this project helpful, please give it a star! It helps others discover this project.
+
+---
+
+<div align="center">
+
+**Made with ❤️ by Shiva Kulakarni**
+
+</div>
 │   └── Login.test.tsx      # Login page tests
 ├── utils/                   # Utility functions (extensible)
 ├── App.tsx                  # Main app with routing
