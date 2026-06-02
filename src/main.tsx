@@ -4,13 +4,14 @@ import App from './App.tsx'
 import './styles/globals.scss'
 
 async function enableMocking() {
-  if (import.meta.env.DEV) {
-    const { worker } = await import('./mocks/browser')
-    return worker.start({
-      onUnhandledRequest: 'bypass',
-    })
-  }
-  return Promise.resolve()
+  // Always enable MSW - this app uses mock API in all environments (no real backend)
+  const { worker } = await import('./mocks/browser')
+  return worker.start({
+    onUnhandledRequest: 'bypass',
+    serviceWorker: {
+      url: '/mockServiceWorker.js',
+    },
+  })
 }
 
 enableMocking()
