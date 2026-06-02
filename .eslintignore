@@ -1,0 +1,8 @@
+node_modules
+dist
+build
+*.lock
+.git
+coverage
+.vscode
+.idea

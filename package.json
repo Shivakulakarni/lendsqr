@@ -1,0 +1,60 @@
+{
+  "name": "lendsqr-fe-test",
+  "version": "1.0.0",
+  "description": "Lendsqr Frontend Engineering Assessment - Admin Dashboard with User Management",
+  "type": "module",
+  "private": true,
+  "author": "Frontend Engineer",
+  "license": "UNLICENSED",
+  "keywords": [
+    "react",
+    "typescript",
+    "vite",
+    "scss",
+    "admin-dashboard",
+    "user-management"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/lendsqr-fe-test"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest --coverage",
+    "lint": "eslint src --ext .ts,.tsx",
+    "lint:fix": "eslint src --ext .ts,.tsx --fix",
+    "format": "prettier --write \"src/**/*.{ts,tsx,scss,json,md}\""
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@types/react": "^19.2.15",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react-swc": "^4.3.1",
+    "@vitest/ui": "^4.1.7",
+    "jsdom": "^29.1.1",
+    "msw": "^2.14.6",
+    "playwright": "^1.60.0",
+    "playwright-core": "^1.60.0",
+    "sass": "^1.100.0",
+    "typescript": "~6.0.2",
+    "vite": "^8.0.12",
+    "vitest": "^4.1.7"
+  },
+  "dependencies": {
+    "axios": "^1.16.1",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "react-router-dom": "^7.16.0"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
+  }
+}

@@ -1,0 +1,858 @@
+/* ==========================================================================
+   Premium UI Styling for Lendsqr Sidebar Administrative Panels
+   ========================================================================== */
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseGlow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(57, 205, 204, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(57, 205, 204, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(57, 205, 204, 0);
+  }
+}
+
+@keyframes pulseRed {
+  0% {
+    box-shadow: 0 0 0 0 rgba(228, 3, 59, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(228, 3, 59, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(228, 3, 59, 0);
+  }
+}
+
+.panelContainer {
+  animation: slideInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  width: 100%;
+  color: var(--color-text-dark);
+}
+
+.viewHeader {
+  margin-bottom: 28px;
+
+  h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #213F7D;
+    margin-bottom: 6px;
+    letter-spacing: -0.5px;
+  }
+
+  p {
+    font-size: 14px;
+    color: #545F7D;
+    opacity: 0.8;
+  }
+}
+
+/* 1. ANCHOR GRID METRICS & INFO CARDS */
+.metricGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.metricCard {
+  background: var(--color-white);
+  border: 1px solid rgba(33, 63, 125, 0.06);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 3px 5px 20px rgba(0, 0, 0, 0.02);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: transparent;
+    transition: background-color 0.2s ease;
+  }
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 3px 10px 30px rgba(33, 63, 125, 0.06);
+    border-color: rgba(57, 205, 204, 0.3);
+
+    &::after {
+      background: var(--color-primary);
+    }
+  }
+}
+
+.iconBadge {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+  background-color: rgba(57, 205, 204, 0.1);
+  color: var(--color-primary);
+}
+
+.cardLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: #545F7D;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.statsBig {
+  font-size: 28px;
+  font-weight: 700;
+  color: #213F7D;
+  line-height: 1.2;
+}
+
+.trendBadge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 20px;
+  margin-top: 8px;
+
+  &.up {
+    background-color: rgba(57, 205, 204, 0.12);
+    color: #39CDCC;
+  }
+
+  &.down {
+    background-color: rgba(228, 3, 59, 0.1);
+    color: #E4033B;
+  }
+}
+
+/* 2. CHART VIEW WRAPPER */
+.chartContainer {
+  background: var(--color-white);
+  border: 1px solid rgba(33, 63, 125, 0.06);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 3px 5px 20px rgba(0, 0, 0, 0.02);
+  margin-bottom: 30px;
+}
+
+.chartHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+
+  h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #213F7D;
+  }
+}
+
+.svgChart {
+  width: 100%;
+  height: 200px;
+  display: block;
+  overflow: visible;
+
+  .gridLine {
+    stroke: rgba(84, 95, 125, 0.08);
+    stroke-width: 1;
+  }
+
+  .chartLine {
+    stroke: var(--color-primary);
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+  }
+
+  .areaFill {
+    fill: url(#chartGradient);
+    opacity: 0.15;
+  }
+
+  .dataPoint {
+    fill: var(--color-primary);
+    stroke: var(--color-white);
+    stroke-width: 2;
+    cursor: pointer;
+    transition: r 0.2s ease;
+
+    &:hover {
+      r: 6;
+    }
+  }
+
+  .axisText {
+    font-size: 10px;
+    fill: #545F7D;
+    font-family: var(--font-family-base);
+  }
+}
+
+/* 3. CARDS & SECTIONS FOR WORKABLE INTERACTION */
+.interactiveLayout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 30px;
+
+  @media (max-width: 991px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.formCard {
+  background: var(--color-white);
+  border: 1px solid rgba(33, 63, 125, 0.06);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 3px 5px 20px rgba(0, 0, 0, 0.02);
+  margin-bottom: 30px;
+
+  h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #213F7D;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(84, 95, 125, 0.1);
+    padding-bottom: 10px;
+  }
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px 20px;
+
+  @media (max-width: 576px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  &.fullWidth {
+    grid-column: 1 / -1;
+  }
+
+  label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #545F7D;
+  }
+
+  input, select, textarea {
+    height: 40px;
+    border: 1px solid rgba(84, 95, 125, 0.15);
+    border-radius: 8px;
+    padding: 0 14px;
+    font-size: 14px;
+    color: var(--color-text-dark);
+    outline: none;
+    transition: all 0.2s ease;
+    background-color: var(--color-white);
+
+    &:focus {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(57, 205, 204, 0.15);
+    }
+
+    &:disabled {
+      background-color: #f4f5f7;
+      cursor: not-allowed;
+    }
+  }
+
+  textarea {
+    height: 90px;
+    padding: 10px 14px;
+    resize: none;
+  }
+}
+
+.btnSubmit {
+  height: 44px;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+
+  &:hover:not(:disabled) {
+    background-color: var(--color-primary-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(57, 205, 204, 0.3);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+/* 4. WORKABLE TABLES */
+.tableContainer {
+  background: var(--color-white);
+  border: 1px solid rgba(33, 63, 125, 0.06);
+  border-radius: 12px;
+  box-shadow: 3px 5px 20px rgba(0, 0, 0, 0.02);
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+
+.tableHeaderActions {
+  padding: 20px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(84, 95, 125, 0.06);
+  flex-wrap: wrap;
+  gap: 16px;
+
+  h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #213F7D;
+  }
+}
+
+.searchInputWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+
+  input {
+    width: 100%;
+    height: 36px;
+    border-radius: 8px;
+    border: 1px solid rgba(84, 95, 125, 0.15);
+    padding: 0 12px 0 36px;
+    outline: none;
+    font-size: 13px;
+    transition: all 0.2s ease;
+
+    &:focus {
+      border-color: var(--color-primary);
+    }
+  }
+
+  .searchIcon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+}
+
+.customTable {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+
+  th {
+    font-size: 12px;
+    font-weight: 600;
+    color: #545F7D;
+    padding: 16px 24px;
+    background-color: #fcfcfd;
+    border-bottom: 1px solid rgba(84, 95, 125, 0.08);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  td {
+    font-size: 14px;
+    color: #545F7D;
+    padding: 16px 24px;
+    border-bottom: 1px solid rgba(84, 95, 125, 0.06);
+  }
+
+  tr:hover td {
+    background-color: rgba(57, 205, 204, 0.02);
+  }
+}
+
+.textBold {
+  font-weight: 600;
+  color: #213F7D;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: 100px;
+  text-transform: capitalize;
+
+  &.active {
+    background-color: rgba(57, 205, 204, 0.1);
+    color: #39CDCC;
+  }
+
+  &.pending {
+    background-color: rgba(233, 178, 0, 0.1);
+    color: #E9B200;
+  }
+
+  &.inactive {
+    background-color: rgba(84, 95, 125, 0.1);
+    color: #545F7D;
+  }
+
+  &.blacklisted {
+    background-color: rgba(228, 3, 59, 0.1);
+    color: #E4033B;
+  }
+}
+
+.btnActionIcon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 4px;
+  color: #545F7D;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background-color: #f4f5f7;
+    color: #213F7D;
+  }
+
+  &.delete:hover {
+    background-color: rgba(228, 3, 59, 0.05);
+    color: #E4033B;
+  }
+}
+
+/* 5. CREDIT SCORE RULES SIMULATOR */
+.sliderCard {
+  background: var(--color-white);
+  border: 1px solid rgba(33, 63, 125, 0.06);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 3px 5px 20px rgba(0, 0, 0, 0.02);
+  margin-bottom: 24px;
+}
+
+.sliderGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+
+  .sliderLabel {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    font-weight: 500;
+    color: #545F7D;
+
+    span:last-child {
+      font-weight: 600;
+      color: var(--color-primary);
+    }
+  }
+
+  input[type="range"] {
+    width: 100%;
+    height: 6px;
+    background: #e4e6eb;
+    border-radius: 100px;
+    outline: none;
+    -webkit-appearance: none;
+
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      cursor: pointer;
+      transition: transform 0.1s ease;
+
+      &:hover {
+        transform: scale(1.2);
+      }
+    }
+  }
+}
+
+.simulationStatus {
+  background-color: rgba(57, 205, 204, 0.05);
+  border: 1px dashed rgba(57, 205, 204, 0.3);
+  border-radius: 8px;
+  padding: 16px;
+  font-size: 13px;
+  color: #213F7D;
+  line-height: 1.5;
+}
+
+/* 6. REAL-WORLD API SERVICE CARD */
+.serviceGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.serviceCard {
+  background: var(--color-white);
+  border: 1px solid rgba(33, 63, 125, 0.06);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 3px 5px 20px rgba(0, 0, 0, 0.02);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.serviceHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h4 {
+    font-size: 15px;
+    font-weight: 600;
+    color: #213F7D;
+  }
+}
+
+.pulseGreen {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #39CDCC;
+  animation: pulseGlow 2s infinite;
+}
+
+.pulseRed {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #E4033B;
+  animation: pulseRed 2s infinite;
+}
+
+.serviceMeta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  font-size: 13px;
+  color: #545F7D;
+
+  span strong {
+    color: #213F7D;
+  }
+}
+
+.btnSecondary {
+  height: 36px;
+  background-color: transparent;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  &:hover:not(:disabled) {
+    background-color: rgba(57, 205, 204, 0.06);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+/* 7. BILLING & WALLET BALANCE BOX */
+.walletPanel {
+  background: linear-gradient(135deg, #213F7D 0%, #172d5a 100%);
+  color: var(--color-white);
+  border-radius: 12px;
+  padding: 28px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 3px 5px 25px rgba(33, 63, 125, 0.15);
+  margin-bottom: 30px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    right: -50px;
+    bottom: -50px;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: rgba(57, 205, 204, 0.08);
+  }
+
+  .walletTitle {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.7;
+    margin-bottom: 8px;
+  }
+
+  .walletBalance {
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 16px;
+  }
+
+  .walletDetails {
+    font-size: 13px;
+    opacity: 0.8;
+  }
+}
+
+/* 8. SIMULATOR GENERATED REPORTS */
+.reportPreview {
+  background-color: #fafbfc;
+  border: 1px solid rgba(84, 95, 125, 0.1);
+  border-radius: 8px;
+  padding: 24px;
+  margin-top: 20px;
+}
+
+.reportSummaryBar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  border-bottom: 2px solid rgba(84, 95, 125, 0.06);
+  padding-bottom: 12px;
+}
+
+.reportField {
+  font-size: 13px;
+  color: #545F7D;
+
+  strong {
+    color: #213F7D;
+    display: block;
+    margin-top: 4px;
+    font-size: 14px;
+  }
+}
+
+.progressBarContainer {
+  height: 8px;
+  background-color: rgba(84, 95, 125, 0.1);
+  border-radius: 100px;
+  overflow: hidden;
+  margin: 16px 0;
+}
+
+.progressBar {
+  height: 100%;
+  background-color: var(--color-primary);
+  border-radius: 100px;
+  transition: width 0.1s linear;
+}
+
+/* 9. GLOBAL BANNER BROADCAST & TOAST ALERTS */
+.alertBanner {
+  background-color: #ffc107;
+  color: #000;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 12px rgba(255, 193, 7, 0.15);
+  animation: slideInUp 0.3s ease both;
+
+  &.info {
+    background-color: rgba(57, 205, 204, 0.1);
+    border: 1px solid rgba(57, 205, 204, 0.3);
+    color: #213F7D;
+  }
+
+  &.warning {
+    background-color: rgba(233, 178, 0, 0.1);
+    border: 1px solid rgba(233, 178, 0, 0.3);
+    color: #b78a00;
+  }
+
+  &.danger {
+    background-color: rgba(228, 3, 59, 0.1);
+    border: 1px solid rgba(228, 3, 59, 0.3);
+    color: #E4033B;
+  }
+
+  .btnCloseAlert {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    color: inherit;
+    padding: 4px;
+  }
+}
+
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background-color: #213F7D;
+  color: var(--color-white);
+  padding: 16px 24px;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 1000;
+  animation: slideInUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+  font-size: 14px;
+  font-weight: 500;
+
+  &::before {
+    content: '✓';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    font-size: 11px;
+    font-weight: bold;
+  }
+}
+
+/* 10. PREFERENCES GRID TOGGLES */
+.toggleRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(84, 95, 125, 0.08);
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.toggleLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  h4 {
+    font-size: 15px;
+    font-weight: 600;
+    color: #213F7D;
+  }
+
+  p {
+    font-size: 13px;
+    color: #545F7D;
+    opacity: 0.8;
+  }
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 46px;
+  height: 24px;
+
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+
+    &:checked + .slider {
+      background-color: var(--color-primary);
+
+      &::before {
+        transform: translateX(22px);
+      }
+    }
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .3s;
+    border-radius: 34px;
+
+    &::before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .3s;
+      border-radius: 50%;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+  }
+}

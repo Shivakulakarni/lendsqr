@@ -1,0 +1,9 @@
+node_modules
+dist
+build
+*.lock
+.git
+.env
+.DS_Store
+.next
+out
